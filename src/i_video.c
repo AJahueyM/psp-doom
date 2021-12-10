@@ -112,8 +112,8 @@ int video_display = 0;
 
 // Screen width and height, from configuration file.
 
-int window_width = 480;
-int window_height = 272;
+int window_width = 480; //1.5
+int window_height = 272; //1.36
 
 // Fullscreen mode, 0x0 for SDL_WINDOW_FULLSCREEN_DESKTOP.
 
@@ -125,11 +125,11 @@ static int max_scaling_buffer_pixels = 16000000;
 
 // Run in full screen mode?  (int type for config code)
 
-int fullscreen = true;
+int fullscreen = false;
 
 // Aspect ratio correction mode
 
-int aspect_ratio_correct = true;
+int aspect_ratio_correct = false;
 static int actualheight;
 
 // Force integer scales for resolution-independent rendering
@@ -148,12 +148,12 @@ int force_software_renderer = false;
 // Time to wait for the screen to settle on startup before starting the
 // game (ms)
 
-static int startup_delay = 1000;
+static int startup_delay = 0;
 
 // Grab the mouse? (int type for config code). nograbmouse_override allows
 // this to be temporarily disabled via the command line.
 
-static int grabmouse = true;
+static int grabmouse = false;
 static boolean nograbmouse_override = false;
 
 // The screen buffer; this is modified to draw things to the screen
@@ -1062,6 +1062,7 @@ void I_GraphicsCheckCommandLine(void)
     {
         SetScaleFactor(3);
     }
+
 }
 
 // Check if we have been invoked as a screensaver by xscreensaver.
@@ -1166,8 +1167,6 @@ static void SetVideoMode(void)
 
     w = window_width;
     h = window_height;
-
-#ifndef PSP
     // In windowed mode, the window can be resized while the game is
     // running.
     window_flags = SDL_WINDOW_RESIZABLE;
@@ -1202,13 +1201,8 @@ static void SetVideoMode(void)
         window_flags |= SDL_WINDOW_BORDERLESS;
     }
 
-#else
-    window_flags = SDL_WINDOW_SHOWN;
-
-#endif
 
     I_GetWindowPosition(&x, &y, w, h);
-    x = 100;
     // Create window and renderer contexts. We set the window title
     // later anyway and leave the window position "undefined". If
     // "window_flags" contains the fullscreen flag (see above), then
@@ -1234,7 +1228,6 @@ static void SetVideoMode(void)
 
     // The SDL_RENDERER_TARGETTEXTURE flag is required to render the
     // intermediate texture into the upscaled texture.
-#ifndef PSP
     renderer_flags = SDL_RENDERER_TARGETTEXTURE;
 	
     if (SDL_GetCurrentDisplayMode(video_display, &mode) != 0)
@@ -1262,9 +1255,7 @@ static void SetVideoMode(void)
         texture = NULL;
         texture_upscaled = NULL;
     }
-#else
-    renderer_flags = SDL_RENDERER_ACCELERATED;
-#endif
+
     renderer = SDL_CreateRenderer(screen, -1, renderer_flags);
 
     // If we could not find a matching render driver,

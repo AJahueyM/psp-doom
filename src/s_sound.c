@@ -113,23 +113,8 @@ int snd_channels = 8;
 
 void S_Init(int sfxVolume, int musicVolume)
 {
-    int i;
 
-    if (gameversion == exe_doom_1_666)
-    {
-        if (logical_gamemission == doom)
-        {
-            I_SetOPLDriverVer(opl_doom1_1_666);
-        }
-        else
-        {
-            I_SetOPLDriverVer(opl_doom2_1_666);
-        }
-    }
-    else
-    {
-        I_SetOPLDriverVer(opl_doom_1_9);
-    }
+    int i;
 
     I_PrecacheSounds(S_sfx, NUMSFX);
 
@@ -163,6 +148,7 @@ void S_Init(int sfxVolume, int musicVolume)
     }
 
     I_AtExit(S_Shutdown, true);
+
 }
 
 void S_Shutdown(void)

@@ -70,9 +70,11 @@ static music_module_t *active_music_module;
 
 extern void I_InitTimidityConfig(void);
 extern sound_module_t sound_sdl_module;
+#ifndef PSP
 extern sound_module_t sound_pcsound_module;
-extern music_module_t music_sdl_module;
 extern music_module_t music_opl_module;
+#endif
+extern music_module_t music_sdl_module;
 extern music_module_t music_pack_module;
 
 // For OPL module:
@@ -100,7 +102,7 @@ static int snd_mport = 0;
 static sound_module_t *sound_modules[] = 
 {
     &sound_sdl_module,
-    &sound_pcsound_module,
+    NULL,
     NULL,
 };
 
@@ -109,7 +111,7 @@ static sound_module_t *sound_modules[] =
 static music_module_t *music_modules[] =
 {
     &music_sdl_module,
-    &music_opl_module,
+    NULL,
     NULL,
 };
 
@@ -172,6 +174,7 @@ static void InitMusicModule(void)
     {
         // Is the music device in the list of devices supported
         // by this module?
+        printf("3.0\n");
 
         if (SndDeviceInList(snd_musicdevice, 
                             music_modules[i]->sound_devices,
@@ -204,13 +207,12 @@ void I_InitSound(boolean use_sfx_prefix)
     // Disable all sound output.
     //
 
-
-
 #ifndef PSP
     nosound = M_CheckParm("-nosound") > 0;
 #else
     nosound = true;
 #endif
+
 
     //!
     // @vanilla
@@ -250,6 +252,7 @@ void I_InitSound(boolean use_sfx_prefix)
          && (snd_musicdevice == SNDDEVICE_GENMIDI
           || snd_musicdevice == SNDDEVICE_GUS))
         {
+
             I_InitTimidityConfig();
         }
 
@@ -260,6 +263,7 @@ void I_InitSound(boolean use_sfx_prefix)
 
         if (!nomusic)
         {
+            printf("2.0\n");
             InitMusicModule();
             active_music_module = music_module;
         }
@@ -504,10 +508,15 @@ void I_BindSoundVariables(void)
     M_BindIntVariable("snd_mport",               &snd_mport);
     M_BindIntVariable("snd_maxslicetime_ms",     &snd_maxslicetime_ms);
     M_BindStringVariable("snd_musiccmd",         &snd_musiccmd);
+#ifndef PSP
     M_BindStringVariable("snd_dmxoption",        &snd_dmxoption);
+#endif
     M_BindIntVariable("snd_samplerate",          &snd_samplerate);
     M_BindIntVariable("snd_cachesize",           &snd_cachesize);
+#ifndef PSP
     M_BindIntVariable("opl_io_port",             &opl_io_port);
+#endif
+
     M_BindIntVariable("snd_pitchshift",          &snd_pitchshift);
 
     M_BindStringVariable("music_pack_path",      &music_pack_path);
