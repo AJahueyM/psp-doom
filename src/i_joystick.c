@@ -260,7 +260,7 @@ static int ReadButtonState(int vbutton) {
 #ifndef PSP
     return SDL_JoystickGetButton(joystick, physbutton);
 #else
-    return (int) latch.uiPress & physbutton;
+    return (int) latch.uiMake & physbutton;
 #endif
 }
 
