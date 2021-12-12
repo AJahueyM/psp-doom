@@ -1408,7 +1408,7 @@ void D_DoomMain (void)
     {
         // Auto-detect the configuration dir.
 
-        M_SetConfigDir(NULL);
+        M_SetConfigDir("ms0:/PSP/chocolate-doom/");
     }
 
     //!
@@ -1723,7 +1723,6 @@ void D_DoomMain (void)
     I_CheckIsScreensaver();
     I_InitTimer();
     I_InitJoystick();
-    printf("1.0\n");
     I_InitSound(true);
     I_InitMusic();
 
