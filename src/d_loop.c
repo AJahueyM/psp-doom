@@ -427,7 +427,6 @@ void D_StartNetGame(net_gamesettings_t *settings,
 
 boolean D_InitNetGame(net_connect_data_t *connect_data)
 {
-#ifndef PSP
     boolean result = false;
     net_addr_t *addr = NULL;
     int i;
@@ -522,8 +521,8 @@ boolean D_InitNetGame(net_connect_data_t *connect_data)
 
         result = true;
     }
-#endif
-    return false;
+
+    return result;
 }
 
 

@@ -33,7 +33,6 @@
 // NETWORKING
 //
 
-#ifndef PSP
 #include <SDL_net.h>
 
 #define DEFAULT_PORT 2342
@@ -377,4 +376,3 @@ net_module_t net_sdl_module =
     NET_SDL_ResolveAddress,
 };
 
-#endif

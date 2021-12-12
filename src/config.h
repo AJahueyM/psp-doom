@@ -40,7 +40,7 @@
 //#define HAVE_LIBSAMPLERATE 0
 
 /* Define to 1 if you have the <linux/kd.h> header file. */
-//#define HAVE_LINUX_KD_H 0
+//#define HAVE_LINUX_KD_H 1
 
 /* Define to 1 if you have the `mmap' function. */
 //#define HAVE_MMAP 1
@@ -67,7 +67,7 @@
 #define HAVE_SYS_TYPES_H 1
 
 /* Define to 1 if you have the <unistd.h> header file. */
-//#define HAVE_UNISTD_H 1
+#define HAVE_UNISTD_H 1
 
 /* Name of package */
 #define PACKAGE "chocolate-doom"

@@ -1272,7 +1272,7 @@ void D_DoomMain (void)
     // Start a dedicated server, routing packets but not participating
     // in the game itself.
     //
-
+#ifndef PSP
     if (M_CheckParm("-dedicated") > 0)
     {
         printf("Dedicated server mode.\n");
@@ -1280,7 +1280,7 @@ void D_DoomMain (void)
 
         // Never returns
     }
-
+#endif
     //!
     // @category net
     //
@@ -1408,7 +1408,7 @@ void D_DoomMain (void)
     {
         // Auto-detect the configuration dir.
 
-        M_SetConfigDir("ms0:/PSP/chocolate-doom/");
+        M_SetConfigDir(NULL);
     }
 
     //!

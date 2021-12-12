@@ -112,8 +112,8 @@ int video_display = 0;
 
 // Screen width and height, from configuration file.
 
-int window_width = 480; //1.5
-int window_height = 272; //1.36
+int window_width = 800;
+int window_height = 600;
 
 // Fullscreen mode, 0x0 for SDL_WINDOW_FULLSCREEN_DESKTOP.
 
@@ -125,11 +125,11 @@ static int max_scaling_buffer_pixels = 16000000;
 
 // Run in full screen mode?  (int type for config code)
 
-int fullscreen = false;
+int fullscreen = true;
 
 // Aspect ratio correction mode
 
-int aspect_ratio_correct = false;
+int aspect_ratio_correct = true;
 static int actualheight;
 
 // Force integer scales for resolution-independent rendering
@@ -148,12 +148,12 @@ int force_software_renderer = false;
 // Time to wait for the screen to settle on startup before starting the
 // game (ms)
 
-static int startup_delay = 0;
+static int startup_delay = 1000;
 
 // Grab the mouse? (int type for config code). nograbmouse_override allows
 // this to be temporarily disabled via the command line.
 
-static int grabmouse = false;
+static int grabmouse = true;
 static boolean nograbmouse_override = false;
 
 // The screen buffer; this is modified to draw things to the screen
@@ -444,6 +444,9 @@ void I_StartTic(void) {
 
     I_GetEvent();
 
+    if (usemouse && !nomouse && window_focused) {
+        I_ReadMouse();
+    }
 
     if (joywait < I_GetTime()) {
         I_UpdateJoystick();
@@ -696,7 +699,6 @@ void I_FinishUpdate(void) {
                                    palette[0].b, SDL_ALPHA_OPAQUE);
         }
     }
-
 #ifdef PSP
     // HACK: SDL_UpdateTexture() is broken on PSP, so we have to create a new one each time :/
     // This is probaly worth investigating and fixing in SDL2
@@ -713,6 +715,7 @@ void I_FinishUpdate(void) {
     SDL_LowerBlit(screenbuffer, &blit_rect, argbbuffer, &blit_rect);
 
     // Update the intermediate texture with the contents of the RGBA buffer.
+
     SDL_UpdateTexture(texture, NULL, argbbuffer->pixels, argbbuffer->pitch);
 
     // Make sure the pillarboxes are kept clear each frame.
@@ -965,7 +968,6 @@ void I_GraphicsCheckCommandLine(void) {
     if (M_CheckParm("-3")) {
         SetScaleFactor(3);
     }
-
 }
 
 // Check if we have been invoked as a screensaver by xscreensaver.
@@ -1055,6 +1057,7 @@ static void SetVideoMode(void) {
 
     w = window_width;
     h = window_height;
+
     // In windowed mode, the window can be resized while the game is
     // running.
     window_flags = SDL_WINDOW_RESIZABLE;
@@ -1084,8 +1087,8 @@ static void SetVideoMode(void) {
         window_flags |= SDL_WINDOW_BORDERLESS;
     }
 
-
     I_GetWindowPosition(&x, &y, w, h);
+
     // Create window and renderer contexts. We set the window title
     // later anyway and leave the window position "undefined". If
     // "window_flags" contains the fullscreen flag (see above), then

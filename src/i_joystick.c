@@ -43,7 +43,7 @@ static SDL_Joystick *joystick = NULL;
 
 // Standard default.cfg Joystick enable/disable
 
-static int usejoystick = 1;
+static int usejoystick = 0;
 
 // SDL GUID and index of the joystick to use.
 static char *joystick_guid = "";
@@ -406,4 +406,3 @@ void I_BindJoystickVariables(void) {
         M_BindIntVariable(name, &joystick_physical_buttons[i]);
     }
 }
-

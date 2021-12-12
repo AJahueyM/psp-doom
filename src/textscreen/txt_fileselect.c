@@ -135,9 +135,11 @@ static char *ExecReadOutput(char **argv)
     {
         result[result_len - 1] = '\0';
     }
-        return result;
-#endif
+
+    return result;
+#else
     return NULL;
+#endif
 }
 
 #endif

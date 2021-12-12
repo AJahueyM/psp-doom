@@ -14,7 +14,7 @@
 //
 // Dedicated server code.
 // 
-
+#ifndef PSP
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -63,7 +63,6 @@ static void CheckForClientOptions(void)
 
 void NET_DedicatedServer(void)
 {
-#ifndef PSP
     CheckForClientOptions();
 
     NET_OpenLog();
@@ -77,6 +76,6 @@ void NET_DedicatedServer(void)
         // TODO: Block on socket instead of polling.
         I_Sleep(1);
     }
-#endif
 }
 
+#endif
