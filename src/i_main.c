@@ -30,11 +30,11 @@
 #include "m_misc.h"
 #include <pspkernel.h>
 
-#define VERS    1 // version
-#define REVS    0 // revision
+// #define VERS    1 // version
+// #define REVS    0 // revision
 
-PSP_MODULE_INFO("PSP DOOM", PSP_MODULE_USER, VERS, REVS);
-PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER);
+// PSP_MODULE_INFO("PSP DOOM", PSP_MODULE_USER, VERS, REVS);
+// PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER);
 
 //
 // D_DoomMain()

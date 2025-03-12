@@ -1,14 +1,25 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 project(psp_doom)
 
 set(CMAKE_CXX_STANDARD_REQUIRED 23)
 
 file(GLOB_RECURSE DOOM_SRC src/**/*.c src/*.c)
-add_executable(${CMAKE_PROJECT_NAME} ${DOOM_SRC})
+add_executable(${PROJECT_NAME} ${DOOM_SRC})
+include(FindPkgConfig)
 
-target_link_libraries(${CMAKE_PROJECT_NAME} SDL2_mixer SDL2 GL vorbisfile vorbis ogg pspaudio pspgu pspvfpu pspvram psphprm png z)
+pkg_search_module(SDL2 REQUIRED sdl2)
+pkg_search_module(SDL2_MIXER REQUIRED SDL2_mixer)
 
-include_directories(${PSPPREFIX}/include/SDL2 src/opl src/textscreen src/pcsound src)
+target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2_MIXER_LIBRARIES} png z)
+target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_INCLUDE_DIRS} ${SDL2_MIXER_INCLUDE_DIRS} src/opl src/textscreen src/pcsound src)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wno-incompatible-pointer-types)
 
-psp_eboot_build(${CMAKE_PROJECT_NAME})
-psp_run_emulation(${CMAKE_PROJECT_NAME})
+# Create an EBOOT.PBP file
+create_pbp_file(
+    TARGET ${PROJECT_NAME}
+    ICON_PATH NULL
+    BACKGROUND_PATH NULL
+    PREVIEW_PATH NULL
+    TITLE ${PROJECT_NAME}
+    VERSION 01.00
+)
