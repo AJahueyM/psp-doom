@@ -37,7 +37,7 @@
 #define HAVE_LIBPNG 1
 
 /* libsamplerate installed */
-//#define HAVE_LIBSAMPLERATE 0
+#define HAVE_LIBSAMPLERATE 1
 
 /* Define to 1 if you have the <linux/kd.h> header file. */
 //#define HAVE_LINUX_KD_H 1

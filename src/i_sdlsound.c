@@ -625,11 +625,11 @@ static boolean ExpandSoundData_SDL(sfxinfo_t *sfxinfo,
 
     // If we can, use the standard / optimized SDL conversion routines.
 
-    if (samplerate <= mixer_freq
+    if (/*samplerate <= mixer_freq
      && ConvertibleRatio(samplerate, mixer_freq)
      && SDL_BuildAudioCVT(&convertor,
                           AUDIO_U8, 1, samplerate,
-                          mixer_format, mixer_channels, mixer_freq))
+                          mixer_format, mixer_channels, mixer_freq)*/false)
     {
         convertor.len = length;
         convertor.buf = malloc(convertor.len * convertor.len_mult);

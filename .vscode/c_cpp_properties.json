@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "PSP",
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "compileCommands": [
+                "${workspaceFolder}/build/compile_commands.json"
+            ],
+            "compilerPath": "/opt/pspdev/bin/psp-gcc",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "browse": {
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "compilerArgs": [
+                "-U__linux__"
+            ]
+        }
+    ],
+    "version": 4
+}

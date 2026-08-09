@@ -248,9 +248,11 @@ char *M_TempFile(const char *s)
     {
         tempdir = ".";
     }
+#elifdef PSP
+    // On the PSP, use the "ms0:/PSP/chocolate-doom/" directory.
+    tempdir = "ms0:/PSP/chocolate-doom/";
 #else
     // In Unix, just use /tmp.
-
     tempdir = "/tmp";
 #endif
 

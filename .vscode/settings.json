@@ -1,9 +1,10 @@
 {
-    "files.associations": {
-        "config.h": "c",
-        "assert.h": "c",
-        "sdl.h": "c",
-        "sdl_audio.h": "c",
-        "sdl_endian.h": "c"
-    }
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.configureSettings": {
+        "CMAKE_TOOLCHAIN_FILE": "/opt/pspdev/psp/share/pspdev.cmake",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+    },
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+    "C_Cpp.default.compilerPath": "/opt/pspdev/bin/psp-gcc",
 }

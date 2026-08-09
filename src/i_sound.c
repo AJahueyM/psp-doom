@@ -122,6 +122,8 @@ static boolean SndDeviceInList(snddevice_t device, snddevice_t *list,
 
     for (i=0; i<len; ++i)
     {
+        fprintf(stdout, "Trace: checking device %d against list[%d] = %d\n", device, i, list[i]);
+
         if (device == list[i])
         {
             return true;
@@ -144,6 +146,7 @@ static void InitSfxModule(boolean use_sfx_prefix)
     {
         // Is the sfx device in the list of devices supported by
         // this module?
+        fprintf(stdout, "Trace: checking sfx device %d against module %d\n", snd_sfxdevice, i);
 
         if (SndDeviceInList(snd_sfxdevice, 
                             sound_modules[i]->sound_devices,
@@ -172,6 +175,7 @@ static void InitMusicModule(void)
     {
         // Is the music device in the list of devices supported
         // by this module?
+        fprintf(stdout, "Trace: checking music device %d against module %d\n", snd_musicdevice, i);
 
         if (SndDeviceInList(snd_musicdevice, 
                             music_modules[i]->sound_devices,
@@ -263,6 +267,9 @@ void I_InitSound(boolean use_sfx_prefix)
         {
             music_packs_active = music_pack_module.Init();
         }
+
+        fprintf(stdout, "Trace: music packs active: %d\n", music_packs_active);
+
     }
 }
 
@@ -438,6 +445,7 @@ void *I_RegisterSong(void *data, int len)
 
     // No substitution for this track, so use the main module.
     active_music_module = music_module;
+    fprintf(stdout, "Trace: using main music module for this track\n ");
     if (active_music_module != NULL)
     {
         return active_music_module->RegisterSong(data, len);
